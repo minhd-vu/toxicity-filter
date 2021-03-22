@@ -1,6 +1,6 @@
 # toxicity-filter
 
-## Dependenies
+## Dependencies
 ```sh
 mkdir data
 cd data
