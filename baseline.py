@@ -15,13 +15,14 @@ def main():
     train_df = pd.read_csv("data/train.csv")
     train_df = train_df[["comment_text", "target"]]
     train_df = clean_text(train_df, "comment_text")
-    #train_df["comment_text"][21] = train_df["comment_text"][21].replace('\n', ' ')
     train_df["target"] = class_labels(train_df["target"])
     train_df.columns = ["text", "labels"]
-    #eval_df = train_df[-2000:]
-    eval_df = train_df[-2000:]
-    train_df = train_df[0:2000]
-    #train_df = train_df[:-1999]
+
+    eval_df = pd.read_csv("data/test_public_expanded.csv")
+    eval_df = train_df[["comment_text", "toxicity"]]
+    eval_df = clean_text(train_df, "comment_text")
+    eval_df.columns = ["text", "labels"]
+
     train_df.to_csv("data/train.tsv", sep=",", index=False)
     eval_df.to_csv("data/eval.tsv", sep=",", index=False)
     # Preparing eval data
