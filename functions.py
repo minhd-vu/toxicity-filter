@@ -1,3 +1,4 @@
+import pdb
 def class_labels(column):
     """
     Takes in target column and creates list of binary values. 1 (>=0.5) being in the 
@@ -21,9 +22,10 @@ def clean_text(df, text):
     Replaces @ signs with word at
     Makes all text lowercase
     """
-    
-    df[text] = df[text].str.replace(r'[^A-Za-z0-9()!?@\s\'\`\*\"\_\n]', '', regex=True)
+    #pdb.set_trace()
+    df[text] = df[text].str.replace(r'[^A-Za-z0-9()!?@\s\'\`\*\"\_\n\r\t]', '', regex=True)
     df[text] = df[text].str.replace(r'@', 'at', regex=True)
+    df[text] = df[text].replace(r'\s+|\\n', ' ', regex=True)
     df[text] = df[text].str.lower()
     
     return df
