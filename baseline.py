@@ -19,8 +19,9 @@ def main():
     train_df.columns = ["text", "labels"]
 
     eval_df = pd.read_csv("data/test_public_expanded.csv")
-    eval_df = train_df[["comment_text", "toxicity"]]
-    eval_df = clean_text(train_df, "comment_text")
+    eval_df = eval_df[["comment_text", "toxicity"]]
+    eval_df = clean_text(eval_df, "comment_text")
+    eval_df["toxicity"] = class_labels(eval_df["toxicity"])
     eval_df.columns = ["text", "labels"]
 
     train_df.to_csv("data/train.tsv", sep=",", index=False)
@@ -28,28 +29,21 @@ def main():
     # Preparing eval data
 
     # Optional model configuration
-    model_args = ClassificationArgs(num_train_epochs=1, lazy_loading=True, lazy_labels_column=1, lazy_text_column=0, lazy_delimiter=',', labels_map={'0': 0, '1': 1})
+    model_args = ClassificationArgs(num_train_epochs=1, lazy_loading=True, lazy_labels_column=1, lazy_text_column=0, lazy_delimiter=',')
     # Create a ClassificationModel
     model = ClassificationModel(
         "roberta",
         "roberta-base",
-        use_cuda=True,
+        use_cuda=False,
+        args=model_args
     )
 
     # Train the model
     #pdb.set_trace()
-    try:
-        model.train_model("data/train.tsv")
-    except:
-        model = ClassificationModel(
-            "roberta",
-            "outputs/",
-            use_cuda=True,
-            args=model_args
-        )
+    model.train_model("data/train.tsv")
 
     # Evaluate the model
-    pdb.set_trace()
+    #pdb.set_trace()
     result, model_outputs, wrong_predictions = model.eval_model("data/eval.tsv")
 
     # Make predictions with the model
