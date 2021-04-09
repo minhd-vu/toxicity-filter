@@ -17,6 +17,9 @@ def main():
     train_df = clean_text(train_df, "comment_text")
     # train_df["target"] = class_labels(train_df["target"])
     train_df.columns = ["text", "labels"]
+    # train_df["labels"] = train_df["labels"].astype(int)
+    # Duplicate the data that is toxic
+    train_df = train_df.append([train_df[train_df["labels"] > 0]] * 5)
 
     # Preparing eval data
     eval_df = pd.read_csv("data/test_public_expanded.csv")
