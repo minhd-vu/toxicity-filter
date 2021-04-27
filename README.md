@@ -56,3 +56,5 @@ curl -X POST -H "Content-Type: application/json" \
     -d '{"message": "why are you so bad!"}' \
     http://localhost:5000/
 ```
+
+We attempted to deploy to heroku but it seems that it's a little limiting for what I'm trying to do. Because the model files are so large, we had to use Git LFS and they can be cloned on Github.
