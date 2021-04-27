@@ -44,10 +44,13 @@ python3 baseline.py
 python3 server.py
 ```
 
+## Evalutation
+For our regression model we had a loss of `0.01`. For our binary classification model, we had a accuracy of `77%`.
+
 ## API
 
 The API utilizes the regression model.
-Sending a POST request to the API will return a value of `0` to `1` depending on the level of toxicity that is detected.
+Sending a POST request to the API will return a value from `0` to `1` depending on the level of toxicity that is detected.
 Create a `cache_dir` directory in the root directory or simpletransformers will throw an error.
 Now, `curl` a POST request to the API, just specify the message.
 
