@@ -4,12 +4,13 @@
 from simpletransformers.classification import ClassificationModel
 from flask import Flask, request
 from gevent.pywsgi import WSGIServer
+import os
 
 app = Flask(__name__)
 # app.config["DEBUG"] = True
 
 model = ClassificationModel(
-    "roberta", "outputs/checkpoint-183643-epoch-1",
+    "roberta", "outputs/model",
     use_cuda=False
 )
 
@@ -23,5 +24,5 @@ def home():
 
 
 if __name__ == "__main__":
-    http_server = WSGIServer(('', 5000), app)
+    http_server = WSGIServer(("", int(os.environ.get("PORT", 5000))), app)
     http_server.serve_forever()
