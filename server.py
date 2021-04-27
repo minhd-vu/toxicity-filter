@@ -3,9 +3,10 @@
 
 from simpletransformers.classification import ClassificationModel
 from flask import Flask, request
+from gevent.pywsgi import WSGIServer
 
 app = Flask(__name__)
-app.config["DEBUG"] = True
+# app.config["DEBUG"] = True
 
 model = ClassificationModel(
     "roberta", "outputs/checkpoint-183643-epoch-1",
@@ -14,8 +15,6 @@ model = ClassificationModel(
 
 @app.route("/", methods=["GET", "POST"])
 def home():
-    global model
-
     if request.method == "POST":
         predictions, raw_outputs = model.predict([request.json["message"]])
         return str(predictions)
@@ -23,4 +22,6 @@ def home():
         return "<h1>Toxcity Filter API</h1>"
 
 
-app.run()
+if __name__ == "__main__":
+    http_server = WSGIServer(('', 5000), app)
+    http_server.serve_forever()
