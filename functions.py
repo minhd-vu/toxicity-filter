@@ -1,20 +1,23 @@
 import pdb
+
+
 def class_labels(column):
     """
     Takes in target column and creates list of binary values. 1 (>=0.5) being in the 
     positive class (toxic), 0 (<0.5) being in the negative class (Not toxic)
     """
-    
+
     class_label = []
-    
+
     for row in column:
-        
+
         if row < 0.5:
             class_label.append(0)
         else:
             class_label.append(1)
-            
+
     return class_label
+
 
 def clean_text(df, text):
     """
@@ -22,10 +25,10 @@ def clean_text(df, text):
     Replaces @ signs with word at
     Makes all text lowercase
     """
-    #pdb.set_trace()
+    # pdb.set_trace()
     df[text] = df[text].str.replace(r'[^A-Za-z0-9()!?@\s\'\`\*\"\_\n\r\t]', '', regex=True)
     df[text] = df[text].str.replace(r'@', 'at', regex=True)
     df[text] = df[text].replace(r'\s+|\\n', ' ', regex=True)
     df[text] = df[text].str.lower()
-    
+
     return df

@@ -130,7 +130,6 @@ dmypy.json
 
 # toxicity-filter
 data/
-outputs/
 cache_dir/
 runs/
 .DS_Store
