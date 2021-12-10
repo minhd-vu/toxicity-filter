@@ -1,5 +1,7 @@
 # toxicity-filter
 
+https://user-images.githubusercontent.com/18576915/145605524-d9782f9b-7f9a-4b81-8783-b54b97459dab.mp4
+
 Github: [https://github.com/minhd-vu/toxicity-filter](https://github.com/minhd-vu/toxicity-filter)
 
 Authors: [Vu Nguyen](https://github.com/vnguyen3950), [Minh Vu](https://github.com/minhd-vu)
